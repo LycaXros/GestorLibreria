@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="3882067751f34bb4aef913757a974669" Name="Diagram1" DisplayType="true" >
+        <EntityTypeShape EntityType="LibreriaModel.Libros" Width="1.5" PointX="2.75" PointY="1.5" IsExpanded="false" />
+        <EntityTypeShape EntityType="LibreriaModel.Categorias" Width="1.5" PointX="0.5" PointY="1.5" IsExpanded="false" />
+        <AssociationConnector Association="LibreriaModel.CategoriaLibro" />
+        <EntityTypeShape EntityType="LibreriaModel.Autores" Width="1.5" PointX="7.625" PointY="1.25" IsExpanded="false" />
+        <EntityTypeShape EntityType="LibreriaModel.LibroAutor" Width="1.5" PointX="5.25" PointY="1.5" IsExpanded="false" />
+        <AssociationConnector Association="LibreriaModel.LibrosLibroAutor" />
+        <AssociationConnector Association="LibreriaModel.AutoresLibroAutor" />
+        <EntityTypeShape EntityType="LibreriaModel.LibroEjemplar" Width="1.5" PointX="3" PointY="2.875" IsExpanded="false" />
+        <AssociationConnector Association="LibreriaModel.LibrosLibroEjemplar" />
+        <EntityTypeShape EntityType="LibreriaModel.Clientes" Width="1.5" PointX="5.25" PointY="4.625" IsExpanded="false" />
+        <EntityTypeShape EntityType="LibreriaModel.Direccion" Width="1.5" PointX="7.875" PointY="3.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="LibreriaModel.HistorialPrestamo" Width="1.5" PointX="5.125" PointY="3" IsExpanded="false" />
+        <AssociationConnector Association="LibreriaModel.LibroEjemplarHistorialPrestamo" />
+        <AssociationConnector Association="LibreriaModel.ClientesHistorialPrestamo" />
+        <EntityTypeShape EntityType="LibreriaModel.Variables" Width="1.5" PointX="0.75" PointY="2.75" IsExpanded="false" />
+        <EntityTypeShape EntityType="LibreriaModel.Credenciales" Width="1.5" PointX="0.75" PointY="3.5" IsExpanded="false" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

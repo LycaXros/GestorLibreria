@@ -32,8 +32,19 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\packages\EntityFramework.6.2.0\lib\net45\EntityFramework.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="EntityFramework.SqlServer, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\packages\EntityFramework.6.2.0\lib\net45\EntityFramework.SqlServer.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="System" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Core" />
+    <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System.Security" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
@@ -45,15 +56,63 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Autores.cs">
+      <DependentUpon>LibreriaModel.tt</DependentUpon>
+    </Compile>
     <Compile Include="Base.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="Base.Designer.cs">
       <DependentUpon>Base.cs</DependentUpon>
     </Compile>
+    <Compile Include="Categorias.cs">
+      <DependentUpon>LibreriaModel.tt</DependentUpon>
+    </Compile>
     <Compile Include="Clases\DatabaseCon.cs" />
+    <Compile Include="Clientes.cs">
+      <DependentUpon>LibreriaModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Credenciales.cs">
+      <DependentUpon>LibreriaModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Direccion.cs">
+      <DependentUpon>LibreriaModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Estados.cs">
+      <DependentUpon>LibreriaModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="HistorialPrestamo.cs">
+      <DependentUpon>LibreriaModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="LibreriaModel.Context.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>LibreriaModel.Context.tt</DependentUpon>
+    </Compile>
+    <Compile Include="LibreriaModel.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>LibreriaModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="LibreriaModel.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>LibreriaModel.edmx</DependentUpon>
+    </Compile>
+    <Compile Include="LibroAutor.cs">
+      <DependentUpon>LibreriaModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="LibroEjemplar.cs">
+      <DependentUpon>LibreriaModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Libros.cs">
+      <DependentUpon>LibreriaModel.tt</DependentUpon>
+    </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Variables.cs">
+      <DependentUpon>LibreriaModel.tt</DependentUpon>
+    </Compile>
     <EmbeddedResource Include="Base.aa.resx">
       <DependentUpon>Base.cs</DependentUpon>
     </EmbeddedResource>
@@ -69,6 +128,14 @@
       <AutoGen>True</AutoGen>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
+    <EntityDeploy Include="LibreriaModel.edmx">
+      <Generator>EntityModelCodeGenerator</Generator>
+      <LastGenOutput>LibreriaModel.Designer.cs</LastGenOutput>
+    </EntityDeploy>
+    <None Include="LibreriaModel.edmx.diagram">
+      <DependentUpon>LibreriaModel.edmx</DependentUpon>
+    </None>
+    <None Include="packages.config" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
@@ -81,6 +148,22 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="LibreriaModel.Context.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <LastGenOutput>LibreriaModel.Context.cs</LastGenOutput>
+      <DependentUpon>LibreriaModel.edmx</DependentUpon>
+    </Content>
+    <Content Include="LibreriaModel.edmx.sql" />
+    <Content Include="LibreriaModel.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <LastGenOutput>LibreriaModel.cs</LastGenOutput>
+      <DependentUpon>LibreriaModel.edmx</DependentUpon>
+    </Content>
+  </ItemGroup>
+  <ItemGroup>
+    <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
