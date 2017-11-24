@@ -29,11 +29,11 @@ GO
 
 -- Creating table 'LibrosSet'
 CREATE TABLE [dbo].[LibrosSet] (
-    [ISBN] nvarchar(max)  NOT NULL,
-    [Titulo] nvarchar(max)  NOT NULL,
-    [Pais] nvarchar(max)  NOT NULL,
-    [Stock] nvarchar(max)  NOT NULL,
-    [Editorial] nvarchar(max)  NOT NULL,
+    [ISBN] nvarchar(20)  NOT NULL,
+    [Titulo] nvarchar(250)  NOT NULL,
+    [Pais] nvarchar(250)  NOT NULL,
+    [Stock] int  NOT NULL,
+    [Editorial] nvarchar(250)  NOT NULL,
     [CategoriaId] int  NOT NULL
 );
 GO
@@ -41,61 +41,61 @@ GO
 -- Creating table 'CategoriasSet'
 CREATE TABLE [dbo].[CategoriasSet] (
     [Id] int IDENTITY(1,1) NOT NULL,
-    [Genero] nvarchar(max)  NOT NULL
+    [Genero] nvarchar(50)  NOT NULL
 );
 GO
 
 -- Creating table 'AutoresSet'
 CREATE TABLE [dbo].[AutoresSet] (
     [Id] int IDENTITY(1,1) NOT NULL,
-    [Nombre] nvarchar(max)  NOT NULL,
-    [Apellido] nvarchar(max)  NOT NULL
+    [Nombre] nvarchar(50)  NOT NULL,
+    [Apellido] nvarchar(50)  NOT NULL
 );
 GO
 
 -- Creating table 'LibroAutorSet'
 CREATE TABLE [dbo].[LibroAutorSet] (
     [Id] int IDENTITY(1,1) NOT NULL,
-    [LibroISBN] nvarchar(max)  NOT NULL,
+    [LibroISBN] nvarchar(20)  NOT NULL,
     [AutorId] int  NOT NULL
 );
 GO
 
 -- Creating table 'LibroEjemplarSet'
 CREATE TABLE [dbo].[LibroEjemplarSet] (
-    [Codigo] nvarchar(max)  NOT NULL,
-    [LibroISBN] nvarchar(max)  NOT NULL,
+    [Codigo] nvarchar(30)  NOT NULL,
+    [LibroISBN] nvarchar(20)  NOT NULL,
     [Numero] int  NOT NULL
 );
 GO
 
 -- Creating table 'ClientesSet'
 CREATE TABLE [dbo].[ClientesSet] (
-    [Identificacion] nvarchar(15)  NOT NULL,
-    [Nombre] nvarchar(max)  NOT NULL,
-    [Apellido] nvarchar(max)  NOT NULL,
-    [Telefono] nvarchar(max)  NOT NULL,
-    [Correo] nvarchar(max)  NOT NULL
+    [Identificacion] nvarchar(25)  NOT NULL,
+    [Nombre] nvarchar(50)  NOT NULL,
+    [Apellido] nvarchar(100)  NOT NULL,
+    [Telefono] nvarchar(20)  NOT NULL,
+    [Correo] nvarchar(30)  NOT NULL
 );
 GO
 
 -- Creating table 'DireccionSet'
 CREATE TABLE [dbo].[DireccionSet] (
     [Id] int IDENTITY(1,1) NOT NULL,
-    [ClienteID] nvarchar(max)  NOT NULL,
-    [Sector] nvarchar(max)  NOT NULL,
-    [Pais] nvarchar(max)  NOT NULL,
-    [Calle] nvarchar(max)  NOT NULL,
-    [Provincia] nvarchar(max)  NOT NULL
+    [ClienteID] nvarchar(25)  NOT NULL,
+    [Sector] nvarchar(50)  NOT NULL,
+    [Pais] nvarchar(50)  NOT NULL,
+    [Calle] nvarchar(50)  NOT NULL,
+    [Provincia] nvarchar(50)  NOT NULL
 );
 GO
 
 -- Creating table 'HistorialPrestamoSet'
 CREATE TABLE [dbo].[HistorialPrestamoSet] (
     [Id] int IDENTITY(1,1) NOT NULL,
-    [LibroEjemplarCodigo] nvarchar(max)  NOT NULL,
-    [ClientesIdentificacion] nvarchar(15)  NOT NULL,
-    [Fecha_Ini] datetime  NOT NULL,
+    [LibroEjemplarCodigo] nvarchar(30)  NOT NULL,
+    [ClientesIdentificacion] nvarchar(25)  NOT NULL,
+    [Fecha_Ini] datetime  default GETDATE(),
     [Fecha_Fin] datetime  NOT NULL,
     [Estado] int  NOT NULL
 );
@@ -104,16 +104,16 @@ GO
 -- Creating table 'VariablesSet'
 CREATE TABLE [dbo].[VariablesSet] (
     [Id] int IDENTITY(1,1) NOT NULL,
-    [Nombre] nvarchar(max)  NOT NULL,
-    [Valor] nvarchar(max)  NOT NULL
+    [Nombre] nvarchar(50)  NOT NULL,
+    [Valor] nvarchar(50)  NOT NULL
 );
 GO
 
 -- Creating table 'CredencialesSet'
 CREATE TABLE [dbo].[CredencialesSet] (
-    [Codigo] nvarchar(max)  NOT NULL,
-    [Nombre] nvarchar(max)  NOT NULL,
-    [Password] nvarchar(max)  NOT NULL
+    [Codigo] nvarchar(50)  NOT NULL,
+    [Nombre] nvarchar(50)  NOT NULL,
+    [Password] nvarchar(250)  NOT NULL
 );
 GO
 
@@ -142,7 +142,7 @@ GO
 -- Creating primary key on [Id] in table 'LibroAutorSet'
 ALTER TABLE [dbo].[LibroAutorSet]
 ADD CONSTRAINT [PK_LibroAutorSet]
-    PRIMARY KEY CLUSTERED ([Id] ASC);
+    PRIMARY KEY CLUSTERED ([Id] ASC,[LibroISBN], [AutorId]);
 GO
 
 -- Creating primary key on [Codigo] in table 'LibroEjemplarSet'
@@ -166,7 +166,7 @@ GO
 -- Creating primary key on [Id] in table 'HistorialPrestamoSet'
 ALTER TABLE [dbo].[HistorialPrestamoSet]
 ADD CONSTRAINT [PK_HistorialPrestamoSet]
-    PRIMARY KEY CLUSTERED ([Id] ASC);
+    PRIMARY KEY CLUSTERED ([Id] ASC,[LibroEjemplarCodigo]);
 GO
 
 -- Creating primary key on [Id] in table 'VariablesSet'
@@ -268,12 +268,21 @@ ADD CONSTRAINT [FK_ClientesHistorialPrestamo]
         ([Identificacion])
     ON DELETE CASCADE ON UPDATE NO ACTION;
 GO
+----
+alter table[dbo].[DireccionSet]
+add Constraint [FK_DireccionCliente]
+	foreign Key (ClienteID)
+	references [dbo].[ClientesSet]
+		([Identificacion])
+	on Delete no action on update no action;
+GO
 
 -- Creating non-clustered index for FOREIGN KEY 'FK_ClientesHistorialPrestamo'
 CREATE INDEX [IX_FK_ClientesHistorialPrestamo]
 ON [dbo].[HistorialPrestamoSet]
     ([ClientesIdentificacion]);
 GO
+
 
 -- --------------------------------------------------
 -- Script has ended
